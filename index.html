@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <title>multi-touch screen test - CodePen</title>
+<style>
+    body {
+        margin: 0px;
+        overflow: hidden;
+    }
+    </style>
+	
+	<link href='style.css' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Raleway:400,200,300,500,600,700,800,900' rel='stylesheet' type='text/css'>
+	
+	<!-- Sign up Free button with QR Code -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>	
+<script>
+	$(document).ready(function () {
+    
+    $('button').click( function () {
+        $('#message-box').slideDown('slow').delay(12000).slideUp('slow');
+    });
+    
+});
+	</script>
+</head>
+
+<body>
+
+  <html>
+<head>
+    <!-- fill iPhone screen with canvas -->
+    <meta name="viewport" content="width=400" />
+    <title>Pop the Bubbles</title>
+    <script type="text/javascript">
+        var can, ctx,
+            canX = [], canY = [], bubble = [],
+            mouseIsDown = 0, len = 0;
+
+        function init() {
+            can = document.getElementById("can");
+            ctx = can.getContext("2d");
+
+            can.addEventListener("mousedown", mouseDown, false);
+            can.addEventListener("mousemove", mouseXY, false);
+            can.addEventListener("touchstart", touchDown, false);
+            can.addEventListener("touchend", touchUp, false);
+            can.addEventListener("touchmove", touchXY, false);
+
+            document.body.addEventListener("mouseup", mouseUp, false);
+            document.body.addEventListener("touchcancel", touchUp, false);
+            for (i = 0; i < 11; i++) {
+                bubble[i] = 0;
+            }
+            animate();
+        }
+
+        function mouseUp() {
+            mouseIsDown = 0;
+            mouseXY();
+        }
+
+        function mouseDown() {
+            mouseIsDown = 1;
+            mouseXY();
+        }
+
+        function touchDown() {
+            mouseIsDown = 1;
+            touchXY();
+        }
+
+        function touchUp(e) {
+            if (!e)
+                e = event;
+            len = e.targetTouches.length;
+        }
+
+        function mouseXY(e) {
+            if (!e)
+                e = event;
+            canX[0] = e.pageX;
+            canY[0] = e.pageY;
+            len = 1;
+        }
+
+        function touchXY(e) {
+            if (!e)
+                e = event;
+            e.preventDefault();
+            len = e.targetTouches.length;
+            for (i = 0; i < len; i++) {
+                canX[i] = e.targetTouches[i].pageX  ;
+                canY[i] = e.targetTouches[i].pageY ;
+            }
+        }
+
+        function animate() {
+
+      //           ctx.clearRect(0,0, can.width, can.height);
+            // create a path for each bubble
+            for (i = 0; i < 11; i++) {
+                                var opacity = 1;
+               var hue = (i * 30) % 256;
+      var lum = 40;
+       ctx.strokeStyle = 'hsla(' + hue + ',100%,' + lum + '%, ' + opacity + ')';;
+              //ctx.fillStyle = 'hsla(' + hue + ',100%,' + lum + '%, ' + opacity + ')';
+      ctx.fill();
+                bubble[i]++;
+                if (bubble[i] >= can.height + 10)
+                    bubble[i] = 3;
+                var y = canY[i];
+                var x = canX[i];
+                var radius = 50;i
+                ctx.beginPath();
+                ctx.arc(x, y, radius, 0, 2 * Math.PI);
+                ctx.closePath();
+                // test each extant touch to see if it is on the bubble
+                for (j = 0;j < len; j++) {
+                    if (ctx.isPointInPath(canX[j], canY[j]) && mouseIsDown)
+                        bubble[i] = 0;
+                }
+                ctx.stroke();
+            }
+      window.requestAnimationFrame(animate, 1000/60);
+        }
+      window.requestAnimationFrame(animate, 1000/60);
+    </script>
+</head>
+<body onload="init()">
+	<h3>Who uses Rise Vision?</h3>
+    <p>Check out the following examples of the key market segments using The Rise Vision platform. </p>
+		
+		<a href="javascript:history.go(0)" class="btn">refresh</a>
+
+
+	
+
+	<img id="logo" src="images/risevisionlogo.svg" alt=""/>
+	<!-- Sign up Free button with QR Code -->
+<button><img src="images/google_256.png"/>&ensp;&ensp;Sign Up Free</button>
+<div id="message-box"><img src="images/qrcode.png"/></div>
+		<div>
+    <canvas id="can" height="1080" width="1920" style="background-color:#1E3039">
+    </canvas>
+</body>
+</html>
+
+  <script src="js/index.js"></script>
+
+</body>
+
+</html>
